@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: metadata
+          uri: lb://METADATA
+          predicates:
+           - Path=/api/v1/**
+        - id: audio
+          uri: lb://AUDIO
+          predicates:
+            - Path=/**
+
+  output:
+    ansi:
+      enabled: always
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
