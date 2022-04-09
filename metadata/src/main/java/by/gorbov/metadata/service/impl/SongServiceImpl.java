@@ -23,11 +23,13 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public SongDto getById(Long id) {
+        log.info("get song {}",id);
         return songMapper.toDto(songRepository.getById(id));
     }
 
     @Override
     public List<SongDto> getAll() {
+        log.info("get all songs");
         List<SongDto> songs = new ArrayList<>();
         songRepository.findAll().forEach(song -> songs.add(songMapper.toDto(song)));
         return songs;

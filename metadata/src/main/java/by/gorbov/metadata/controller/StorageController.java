@@ -25,11 +25,6 @@ public class StorageController {
         return storageService.getById(id);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody StorageDto storage) {
-        storageService.delete(storage);
-    }
-
     @PostMapping
     public void create(@RequestBody StorageDto storage) {
         storageService.save(storage);

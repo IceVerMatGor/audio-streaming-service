@@ -25,19 +25,5 @@ public class SongController {
         return songService.getById(id);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody SongDto song) {
-        songService.delete(song);
-    }
-
-    @PostMapping
-    public void create(@RequestBody SongDto song) {
-        songService.save(song);
-    }
-
-    @PutMapping
-    public void update(@RequestBody SongDto song) {
-        songService.update(song);
-    }
 
 }

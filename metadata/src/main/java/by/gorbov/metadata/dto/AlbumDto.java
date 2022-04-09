@@ -1,51 +1,30 @@
 package by.gorbov.metadata.dto;
 
+import lombok.*;
+import org.hibernate.validator.internal.constraintvalidators.bv.time.past.PastValidatorForYear;
+
+import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.Year;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class AlbumDto extends AbstractDto{
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class AlbumDto extends AbstractDto {
+    @NotBlank
     private String name;
-    private Integer year;
+
+    @PastOrPresent
+    private Year year;
+
     private String notes;
-    private List<Long> songsId;
+
+    @NotEmpty
+    private List<SongDto> songs;
     private List<Long> artistsId;
-
-    public List<Long> getSongsId() {
-        return songsId;
-    }
-
-    public void setSongsId(List<Long> songsId) {
-        this.songsId = songsId;
-    }
-
-    public List<Long> getArtistsId() {
-        return artistsId;
-    }
-
-    public void setArtistsId(List<Long> artistsId) {
-        this.artistsId = artistsId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }

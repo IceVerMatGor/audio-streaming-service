@@ -12,7 +12,13 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Artist extends AbstractEntity{
+@Table(uniqueConstraints =
+        {
+                @UniqueConstraint(columnNames = "id"),
+                @UniqueConstraint(columnNames = "name")
+        })
+public class Artist extends AbstractEntity {
+
     private String name;
     private String notes;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -26,10 +26,10 @@ public class ResourceController {
         return resourceService.getById(id);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody ResourceDto resource) {
-        resourceService.delete(resource);
-    }
+//    @DeleteMapping
+//    public void delete(@RequestBody ResourceDto resource) {
+//        resourceService.delete(resource);
+//    }
 
     @PostMapping
     public void create(@RequestBody ResourceDto resource) {

@@ -9,10 +9,36 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ResourceServiceImpl implements ResourceService {
 
 
+    @Override
+    public List<ResourceDto> getAll() {
+        return null;
+    }
+
+    @Override
+    public ResourceDto getById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void save(ResourceDto resourceDto) {
+
+    }
+
+    @Override
+    public void update(ResourceDto resourceDto) {
+
+    }
+
+    @Override
+    public void deleteAllById(List<Long> ids) {
+
+    }
 }

@@ -3,6 +3,7 @@ package by.gorbov.metadata.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Year;
 
 @Entity
 @Getter
@@ -10,12 +11,19 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(uniqueConstraints =
+        {
+                @UniqueConstraint(columnNames = "id"),
+                @UniqueConstraint(columnNames = {"name","album_id"})
+        })
 public class Song extends AbstractEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     private Album album;
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private Resource resource;
+
+    private Long resourceId;
+
     private String notes;
-    private Integer year;
+    private Year year;
     private String name;
 }

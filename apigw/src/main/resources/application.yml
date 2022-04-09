@@ -17,7 +17,8 @@ spring:
         - id: audio
           uri: lb://AUDIO
           predicates:
-            - Path=/**
+            - Path=/api/v2/resources/**
+            - Path=/api/v2/storages/**
 
   output:
     ansi:
@@ -30,3 +31,7 @@ management:
     web:
       exposure:
         include: gateway
+eureka:
+  client:
+    service-url:
+          defaultZone: http://localhost:8761/eureka

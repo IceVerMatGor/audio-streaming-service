@@ -2,10 +2,9 @@ package by.gorbov.metadata.entity;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,14 +14,26 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Album extends AbstractEntity{
+@Table(uniqueConstraints =
+        {
+                @UniqueConstraint(columnNames = "id"),
+                @UniqueConstraint(columnNames = {"name", "year"})
+        })
+public class Album extends AbstractEntity {
+
+
     private String name;
-    private Integer year;
+    private Year year;
     private String notes;
-    @ManyToMany()
+    @ManyToMany
     private Set<Artist> artists;
-    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
-    private List<Song> songs;
+
+    @OneToMany(
+            mappedBy = "album",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Song> songs = new ArrayList<>();
 
     public void addArtist(Artist artist) {
         this.artists.add(artist);

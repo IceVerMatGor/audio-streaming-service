@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -22,21 +26,33 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDto getById(Long id) {
+        log.info("get genre {}",id);
         return genreMapper.toDto(genreRepository.getById(id));
     }
 
     @Override
     public List<GenreDto> getAll() {
+        log.info("get all genres");
         return null;
     }
 
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {SQLException.class, NullPointerException.class})
     @Override
     public void save(GenreDto genreDto) {
+        log.info("save genre {}",genreDto.getName());
         genreRepository.save(genreMapper.toEntity(genreDto));
     }
 
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {SQLException.class, NullPointerException.class})
     @Override
     public void update(GenreDto newGenre) {
-
+        log.info("update genre {}",newGenre.getId());
+        genreRepository.save(genreMapper.toEntity(newGenre));
     }
 }

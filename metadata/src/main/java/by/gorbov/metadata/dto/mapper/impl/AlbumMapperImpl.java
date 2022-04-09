@@ -1,6 +1,7 @@
 package by.gorbov.metadata.dto.mapper.impl;
 
 import by.gorbov.metadata.dto.AlbumDto;
+import by.gorbov.metadata.dto.SongDto;
 import by.gorbov.metadata.dto.mapper.api.AlbumMapper;
 import by.gorbov.metadata.entity.AbstractEntity;
 import by.gorbov.metadata.entity.Album;
@@ -8,6 +9,7 @@ import by.gorbov.metadata.entity.Artist;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -26,8 +28,7 @@ public class AlbumMapperImpl extends AbstractMapper<AlbumDto, Album> implements 
     @PostConstruct
     public void setupMapper() {
         mapper.createTypeMap(Album.class, AlbumDto.class)
-                .addMappings(m -> m.skip(AlbumDto::setArtistsId)).setPostConverter(toDtoConverter())
-                .addMappings(m -> m.skip(AlbumDto::setSongsId)).setPostConverter(toDtoConverter());
+                .addMappings(m -> m.skip(AlbumDto::setArtistsId)).setPostConverter(toDtoConverter());
         mapper.createTypeMap(AlbumDto.class, Album.class)
                 .addMappings(m -> m.skip(Album::setArtists)).setPostConverter(toEntityConverter());
     }
@@ -35,22 +36,22 @@ public class AlbumMapperImpl extends AbstractMapper<AlbumDto, Album> implements 
     @Override
     public void mapSpecificFields(Album source, AlbumDto destination) {
         List<Long> artistsId = source.getArtists().stream().mapToLong(AbstractEntity::getId).boxed().toList();
-        List<Long> songsId = source.getSongs().stream().mapToLong(AbstractEntity::getId).boxed().toList();
 
         destination.setArtistsId(artistsId);
-        destination.setSongsId(songsId);
     }
 
     @Override
     public void mapSpecificFields(AlbumDto source,Album destination){
         List<Long> artistsId = source.getArtistsId();
         destination.setArtists(new HashSet<>());
-        artistsId.forEach((id)-> {
-            Artist artist = new Artist();
-            artist.setId(id);
-            artist.setAlbums(new HashSet<>());
-            artist.addAlbum(destination);
-        });
+        if (artistsId != null) {
+            artistsId.forEach((id) -> {
+                Artist artist = new Artist();
+                artist.setId(id);
+                artist.setAlbums(new HashSet<>());
+                artist.addAlbum(destination);
+            });
+        }
     }
 
 

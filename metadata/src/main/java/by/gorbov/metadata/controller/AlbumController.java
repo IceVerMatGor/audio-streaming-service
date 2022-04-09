@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,12 +34,12 @@ public class AlbumController {
     }
 
     @PostMapping
-    public void create(@RequestBody AlbumDto album) {
+    public void create(@RequestBody @Valid AlbumDto album) {
         albumService.save(album);
     }
 
     @PutMapping
-    public void update(@RequestBody AlbumDto album) {
+    public void update(@RequestBody @Valid AlbumDto album) {
         albumService.update(album);
     }
 }

@@ -25,11 +25,6 @@ public class GenreController {
         return genreService.getById(id);
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody GenreDto genre) {
-        genreService.delete(genre);
-    }
-
     @PostMapping
     public void create(@RequestBody GenreDto genre) {
         genreService.save(genre);
