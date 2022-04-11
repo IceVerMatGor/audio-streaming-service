@@ -60,19 +60,6 @@ public class AlbumServiceImpl implements AlbumService {
             song.setYear(album.getYear());
         });
         albumRepository.save(album);
-
-//        RestTemplate restTemplate = new RestTemplate();
-//        List<ResourceDto> list = new ArrayList<>();
-//        savedAlbum.getSongs().forEach(song -> {
-//            song.setResourceId(song.getId());
-//            list.add(ResourceDto.builder()
-//                    .songId(song.getId())
-//                    .id(song.getId())
-//                    .build());
-//        });
-//        HttpEntity<List<ResourceDto>> entities = new HttpEntity<>(list);
-//        restTemplate.exchange("http://localhost:8082/api/v1/resources", HttpMethod.POST, entities, ResourceDto.class);
-
     }
 
     @Transactional(
