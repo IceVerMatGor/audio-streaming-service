@@ -7,10 +7,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourceDto extends AbstractDto{
-    private String path;
-    private Integer size;
-    private Integer checksum;
+public class ResourceDto{
+    private Long id;
     private Long storageId;
     private Long songId;
 }

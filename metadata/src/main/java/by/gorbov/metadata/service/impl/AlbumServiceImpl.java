@@ -59,12 +59,20 @@ public class AlbumServiceImpl implements AlbumService {
             song.setAlbum(album);
             song.setYear(album.getYear());
         });
+        albumRepository.save(album);
+
 //        RestTemplate restTemplate = new RestTemplate();
 //        List<ResourceDto> list = new ArrayList<>();
-//
-//        HttpEntity<List<ResourceDto>> entities = new HttpEntity<>(new ResourceDto());
+//        savedAlbum.getSongs().forEach(song -> {
+//            song.setResourceId(song.getId());
+//            list.add(ResourceDto.builder()
+//                    .songId(song.getId())
+//                    .id(song.getId())
+//                    .build());
+//        });
+//        HttpEntity<List<ResourceDto>> entities = new HttpEntity<>(list);
 //        restTemplate.exchange("http://localhost:8082/api/v1/resources", HttpMethod.POST, entities, ResourceDto.class);
-        albumRepository.save(album);
+
     }
 
     @Transactional(
@@ -76,6 +84,20 @@ public class AlbumServiceImpl implements AlbumService {
         log.info("update album {}", newAlbum.getId());
         Album album = albumMapper.toEntity(newAlbum);
         album.getSongs().forEach(song -> song.setAlbum(album));
+
+        RestTemplate restTemplate = new RestTemplate();
+        List<ResourceDto> list = new ArrayList<>();
+        album.getSongs().forEach(song -> {
+            song.setResourceId(song.getId());
+            list.add(ResourceDto.builder()
+                    .songId(song.getId())
+                    .id(song.getId())
+                    .storageId(1L)
+                    .build());
+        });
+        HttpEntity<List<ResourceDto>> entities = new HttpEntity<>(list);
+        restTemplate.exchange("http://localhost:8082/api/v2/resources", HttpMethod.POST, entities, ResourceDto.class);
+
         albumRepository.save(album);
     }
 

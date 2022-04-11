@@ -1,15 +1,16 @@
 package by.gorbov.audio.service;
 
+import by.gorbov.audio.dto.StorageDto;
 import by.gorbov.audio.entity.Storage;
 
 import java.util.List;
 
 public interface StorageService {
-    List<Storage> getAll();
+    List<StorageDto> getAll();
 
-    Storage getById(Long id);
+    StorageDto getById(Long id);
 
-    void save(Storage storage);
+    void save(StorageDto storageDto);
 
-    void update(Storage storage);
+    void update(StorageDto storageDto);
 }

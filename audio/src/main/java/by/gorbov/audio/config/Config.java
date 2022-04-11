@@ -2,6 +2,7 @@ package by.gorbov.audio.config;
 
 import lombok.AllArgsConstructor;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.content.fs.config.EnableFilesystemStores;
 import org.springframework.content.fs.io.FileSystemResourceLoader;
@@ -16,7 +17,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableFilesystemStores
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class Config {
     private final Properties configProp;

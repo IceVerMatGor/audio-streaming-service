@@ -17,7 +17,6 @@ import java.util.List;
 public class ResourceController {
 
     private final ResourceService resourceService;
-    private final AudioStore audioStore;
 
 
     @GetMapping

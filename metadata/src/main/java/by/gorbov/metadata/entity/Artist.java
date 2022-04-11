@@ -21,7 +21,7 @@ public class Artist extends AbstractEntity {
 
     private String name;
     private String notes;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Genre genre;
     @ManyToMany(mappedBy = "artists")
     private Set<Album> albums;

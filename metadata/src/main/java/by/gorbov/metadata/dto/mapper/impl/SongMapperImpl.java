@@ -2,8 +2,6 @@ package by.gorbov.metadata.dto.mapper.impl;
 
 import by.gorbov.metadata.dto.SongDto;
 import by.gorbov.metadata.dto.mapper.api.SongMapper;
-import by.gorbov.metadata.entity.Album;
-import by.gorbov.metadata.entity.Resource;
 import by.gorbov.metadata.entity.Song;
 import org.springframework.stereotype.Component;
 

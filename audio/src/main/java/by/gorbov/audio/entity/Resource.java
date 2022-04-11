@@ -17,7 +17,6 @@ import java.util.UUID;
 public class Resource {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

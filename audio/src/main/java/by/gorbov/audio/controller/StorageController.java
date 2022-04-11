@@ -1,5 +1,6 @@
 package by.gorbov.audio.controller;
 
+import by.gorbov.audio.dto.StorageDto;
 import by.gorbov.audio.entity.Storage;
 import by.gorbov.audio.service.StorageService;
 import lombok.AllArgsConstructor;
@@ -16,22 +17,22 @@ public class StorageController {
     private final StorageService storageService;
 
     @GetMapping
-    public List<Storage> getAll() {
+    public List<StorageDto> getAll() {
         return storageService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Storage getById(@PathVariable Long id) {
+    public StorageDto getById(@PathVariable Long id) {
         return storageService.getById(id);
     }
 
     @PostMapping
-    public void create(@RequestBody Storage storage) {
+    public void create(@RequestBody StorageDto storage) {
         storageService.save(storage);
     }
 
     @PutMapping
-    public void update(@RequestBody Storage storage) {
+    public void update(@RequestBody StorageDto storage) {
         storageService.update(storage);
     }
 }
