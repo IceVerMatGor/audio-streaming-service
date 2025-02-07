@@ -17,36 +17,34 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @RestController
-@RequestMapping("/api/v2/resources")
+@RequestMapping("/api/v1/resources")
 @AllArgsConstructor
 @Slf4j
 public class AudioController {
 
     private final ResourceRepo resourceService;
     private final AudioStore audioStore;
-    private final Properties configProp;
 
     @PutMapping("/{id}/audio")
     public ResponseEntity<?> setContent(@PathVariable("id") Long id, @RequestParam("audio") MultipartFile audio)
             throws IOException {
 
-        Optional<Resource> r = resourceService.findById(id);
-        if (r.isPresent()) {
-            r.get().setAudioType(audio.getContentType());
+        Optional<Resource> resource = resourceService.findById(id);
+        if (resource.isPresent()) {
+            resource.get().setAudioType(audio.getContentType());
 
-            r.get().setChecksum(DigestUtils.md5Hex(audio.getInputStream()));
+            resource.get().setChecksum(DigestUtils.md5Hex(audio.getInputStream()));
 
-            audioStore.setContent(r.get(), audio.getInputStream());
+            audioStore.setContent(resource.get(), audio.getInputStream());
 
-            r.get().setOriginalFileName(audio.getOriginalFilename());
-            r.get().setPath(configProp.getProperty("path") + r.get().getAudioId());
+            resource.get().setOriginalFileName(audio.getOriginalFilename());
+            resource.get().setPath(resource.get().getAudioId().toString());
 
-            resourceService.save(r.get());
+            resourceService.save(resource.get());
 
 
             return new ResponseEntity<Object>(HttpStatus.OK);

@@ -10,15 +10,15 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: metadata
-          uri: lb://METADATA
-          predicates:
-           - Path=/api/v1/**
         - id: audio
           uri: lb://AUDIO
           predicates:
-            - Path=/api/v2/resources/**
-            - Path=/api/v2/storages/**
+            - Path=/api/v1/resources/**
+        - id: metadata
+          uri: lb://METADATA
+          predicates:
+            - Path=/api/v1/**
+
 
   output:
     ansi:
@@ -34,4 +34,4 @@ management:
 eureka:
   client:
     service-url:
-          defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka

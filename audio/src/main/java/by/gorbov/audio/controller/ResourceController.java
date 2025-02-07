@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v2/resources")
+@RequestMapping("api/v1/resources")
 @RequiredArgsConstructor
 @Slf4j
 public class ResourceController {

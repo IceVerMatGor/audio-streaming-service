@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v2/storages")
+@RequestMapping("api/v1/storages")
 @Slf4j
 @AllArgsConstructor
 public class StorageController {

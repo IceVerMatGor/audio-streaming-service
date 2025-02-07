@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,10 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<GenreDto> getAll() {
         log.info("get all genres");
-        return null;
+        List<GenreDto> genres = new ArrayList<>();
+        genreRepository.findAll().forEach(genre -> genres.add( genreMapper.toDto(genre)));
+        return genres;
+
     }
 
     @Transactional(

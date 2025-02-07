@@ -83,7 +83,7 @@ public class AlbumServiceImpl implements AlbumService {
                     .build());
         });
         HttpEntity<List<ResourceDto>> entities = new HttpEntity<>(list);
-        restTemplate.exchange("http://localhost:8082/api/v2/resources", HttpMethod.POST, entities, ResourceDto.class);
+        restTemplate.exchange("http://localhost:8082/api/v1/resources", HttpMethod.POST, entities, ResourceDto.class);
 
         albumRepository.save(album);
     }
